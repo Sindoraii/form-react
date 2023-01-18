@@ -1,6 +1,11 @@
+import ViewManager from "./ViewManager/ViewManager";
+
 const App = ({entity,isEdit}) => {
   return (
-    <div className="form"></div>
+      <ViewManager
+          entity={JSON.parse(JSON.stringify(entity))}
+          isEdit = {isEdit}
+      />
   );
 }
 

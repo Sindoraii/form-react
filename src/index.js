@@ -12,6 +12,17 @@ const user = {
     cardExpiration: '2023-02',
     cardCvc: '123',
 }
+
+const empty = {
+    name: '',
+    surname: '',
+    email: '',
+    dateOfBirth: '',
+    cardNumber: '',
+    cardExpiration: '',
+    cardCvc: '',
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

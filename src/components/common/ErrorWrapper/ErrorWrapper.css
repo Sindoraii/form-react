@@ -1,0 +1,6 @@
+.error-wrapper::after {
+    content: attr(data-error);
+    padding-top: 4px;
+    font-size: 0.8rem;
+    color: red;
+}
