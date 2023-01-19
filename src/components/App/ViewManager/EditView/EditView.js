@@ -1,18 +1,10 @@
-import styles from "./NewView.module.css";
-import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
 import {useState} from "react";
-import {setMinDate,setMaxDate} from "../../../../utils/settingExpirationDate";
+import styles from "./EditView.module.css";
+import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
+import {setMaxDate, setMinDate} from "../../../../utils/settingExpirationDate";
 
-const NewView = () => {
-    const [fields,setFields] = useState({
-        name: '',
-        surname: '',
-        email: '',
-        dateOfBirth: '',
-        cardNumber: '',
-        cardExpiration: '',
-        cardCvc: ''
-    });
+const EditView = (props) => {
+    const [fields,setFields] = useState(props.entity);
 
     /* HANDLERS */
     const changeHandler = (event) => {
@@ -30,7 +22,7 @@ const NewView = () => {
 
 
     return (
-        <form className={styles.formNewView} noValidate={true}>
+        <form className={styles.formEditView} noValidate={true}>
             <h1>Client form</h1>
             <fieldset className={styles.fieldset}>
                 <h2>Contact information</h2>
@@ -76,7 +68,7 @@ const NewView = () => {
                                min={`${new Date().getFullYear() - 100}-01-01`}
                                className={styles.input}
                                name="dateOfBirth"
-                               value={fields.c}
+                               value={fields.dateOfBirth}
                                onChange={(e) => changeHandler(e)}
                         />
                     </label>
@@ -128,4 +120,4 @@ const NewView = () => {
     )
 }
 
-export default NewView;
+export default EditView;

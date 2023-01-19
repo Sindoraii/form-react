@@ -3,7 +3,7 @@ import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
 
 const ReviewView = (props) => {
     return(
-        <form className={styles.form} >
+        <form className={styles.formReviewView} >
             <h1>Client form</h1>
             <fieldset  className={styles.fieldset} disabled={true}>
                 <h2>Contact information</h2>
