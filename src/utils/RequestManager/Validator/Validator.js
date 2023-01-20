@@ -4,7 +4,12 @@ import {
     checkStringMinLength,
     checkStringWithoutNumbers
 } from "./rules/stringRules/stringRules";
-import {checkNumbers, checkNumberWithWhiteSpace} from "./rules/numberRules/numberRules";
+import {
+    checkMinLengthOfCardNumber,
+    checkMinMaxLength,
+    checkNumbers,
+    checkNumberWithWhiteSpace
+} from "./rules/numberRules/numberRules";
 
 class Validator {
     constructor(entity) {
@@ -37,8 +42,8 @@ class Validator {
                 return dateErrors;
             case 'cardNumber':
                 const cardNumberErrors = [];
-                console.log('cardNumberEr',cardNumberErrors)
                 addError(checkNumberWithWhiteSpace(fieldName,fieldValue),cardNumberErrors);
+                addError(checkMinLengthOfCardNumber(fieldName,fieldValue),cardNumberErrors);
                 return cardNumberErrors;
             case 'cardExpiration':
                 const cardExpirationErrors = [];

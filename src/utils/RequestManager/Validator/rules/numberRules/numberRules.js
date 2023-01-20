@@ -5,8 +5,6 @@ export function checkNumberWithWhiteSpace(fieldName, value) {
 
     if (chars.length !== 0) {
         chars.forEach((char) => {
-            console.log(char);
-
             if (isNaN(Number(char))) {
                     error = {
                         field: fieldName,
@@ -28,6 +26,7 @@ export function checkNumberWithWhiteSpace(fieldName, value) {
     }
     return error;
 }
+
 export function checkNumbers(fieldName, value) {
     const copy = JSON.parse(JSON.stringify(value))
     const chars = Array.from(copy);
@@ -42,5 +41,17 @@ export function checkNumbers(fieldName, value) {
             return error;
         }
     })
+    return error;
+}
+
+export function checkMinLengthOfCardNumber(fieldName, value) {
+    const MIN_LENGTH = 19;
+    let error = {};
+    if(value.length <  MIN_LENGTH) {
+        error = {
+            field: fieldName,
+            message: "Card number is incorrect"
+        }
+    }
     return error;
 }
