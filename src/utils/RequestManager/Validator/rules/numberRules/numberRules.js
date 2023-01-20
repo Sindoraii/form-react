@@ -46,10 +46,15 @@ export function checkNumbers(fieldName, value) {
 
 export function checkMinLength(fieldName, value,min) {
     let error = {};
-    if(value.length <  min) {
+    if(value.length <  min && value.length !== 0) {
         error = {
             field: fieldName,
-            message: "Card number is incorrect"
+            message: "Count of numerals is incorrect"
+        }
+    } else if(value.length === 0) {
+        error = {
+            field: fieldName,
+            message: "Field is required"
         }
     }
     return error;

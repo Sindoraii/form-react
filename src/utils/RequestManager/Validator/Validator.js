@@ -53,6 +53,7 @@ class Validator {
                 return cardExpirationErrors;
             case 'cardCvc':
                 const cvcErrors = [];
+                addError(checkMinLength(fieldName,fieldValue,3),cvcErrors);
                 addError(checkNumbers(fieldName,fieldValue),cvcErrors);
                 return cvcErrors;
             default:
