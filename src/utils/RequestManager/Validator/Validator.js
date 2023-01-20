@@ -5,6 +5,7 @@ import {
     checkStringWithoutNumbers
 } from "./rules/stringRules/stringRules";
 import {
+    checkMinLength,
     checkMinLengthOfCardNumber,
     checkMinMaxLength,
     checkNumbers,
@@ -43,7 +44,7 @@ class Validator {
             case 'cardNumber':
                 const cardNumberErrors = [];
                 addError(checkNumberWithWhiteSpace(fieldName,fieldValue),cardNumberErrors);
-                addError(checkMinLengthOfCardNumber(fieldName,fieldValue),cardNumberErrors);
+                addError(checkMinLength(fieldName,fieldValue,19),cardNumberErrors);
                 return cardNumberErrors;
             case 'cardExpiration':
                 const cardExpirationErrors = [];

@@ -44,10 +44,9 @@ export function checkNumbers(fieldName, value) {
     return error;
 }
 
-export function checkMinLengthOfCardNumber(fieldName, value) {
-    const MIN_LENGTH = 19;
+export function checkMinLength(fieldName, value,min) {
     let error = {};
-    if(value.length <  MIN_LENGTH) {
+    if(value.length <  min) {
         error = {
             field: fieldName,
             message: "Card number is incorrect"
