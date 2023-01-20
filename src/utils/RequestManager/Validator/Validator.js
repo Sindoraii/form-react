@@ -37,6 +37,7 @@ class Validator {
                 return dateErrors;
             case 'cardNumber':
                 const cardNumberErrors = [];
+                console.log('cardNumberEr',cardNumberErrors)
                 addError(checkNumberWithWhiteSpace(fieldName,fieldValue),cardNumberErrors);
                 return cardNumberErrors;
             case 'cardExpiration':
