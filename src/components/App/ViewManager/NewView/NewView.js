@@ -3,7 +3,8 @@ import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
 import {useState} from "react";
 import {setMinDate,setMaxDate} from "../../../../utils/settingExpirationDate";
 
-const NewView = ({sender}) => {
+const NewView = (props) => {
+    const [errors,setErrors] = useState([]);
     const [fields,setFields] = useState({
         name: '',
         surname: '',
@@ -14,6 +15,15 @@ const NewView = ({sender}) => {
         cardCvc: ''
     });
 
+    const getMessageError = (fieldName) => {
+        const error = errors.find((item)=> fieldName === item.field);
+
+        if(error === undefined) {
+            return null;
+        } else {
+            return error.message;
+        }
+    }
     /* HANDLERS */
     const changeHandler = (event) => {
         const changeState = () => {
@@ -28,17 +38,27 @@ const NewView = ({sender}) => {
         setFields(changeState());
     }
 
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const validationResult = props.sender(fields,props.changeMode);
+
+        if(validationResult.length !== 0) {
+            setErrors(validationResult);
+        } else {
+            setErrors([]);
+        }
+    }
 
     return (
         <form
             className={styles.formNewView}
             noValidate={true}
-            onSubmit={()=>sender.sendRequest(fields)}
+            onSubmit={(event)=>submitHandler(event)}
         >
             <h1>Client form</h1>
             <fieldset className={styles.fieldset}>
                 <h2>Contact information</h2>
-                <ErrorWrapper>
+                <ErrorWrapper  message={getMessageError('name')}>
                     <label className={styles.label}>
                         Name:
                         <input type="text"
@@ -50,7 +70,7 @@ const NewView = ({sender}) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper  message={getMessageError('surname')}>
                     <label className={styles.label}>
                         Surname:
                         <input type="text" maxLength="1000"
@@ -61,7 +81,7 @@ const NewView = ({sender}) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper  message={getMessageError('email')}>
                     <label className={styles.label}>
                         Email:
                         <input type="email"
@@ -73,7 +93,7 @@ const NewView = ({sender}) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper  message={getMessageError('dateOfBirth')}>
                     <label className={styles.label}>
                         Birthday:
                         <input type="date"
@@ -88,7 +108,7 @@ const NewView = ({sender}) => {
             </fieldset>
             <fieldset className={styles.fieldset}>
                 <h2>Payment information</h2>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('cardNumber')}>
                     <label className={styles.label}>
                         Card:
                         <input type="text"
@@ -100,7 +120,7 @@ const NewView = ({sender}) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('cardExpiration')}>
                     <label className={styles.label}>
                         Expiration:
                         <input type="month"
@@ -113,7 +133,7 @@ const NewView = ({sender}) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('cardCvc')}>
                     <label className={styles.label}>
                         CVC:
                         <input type="password"

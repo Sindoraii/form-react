@@ -16,6 +16,6 @@ const user = {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App entity={user} isEdit={false}/>
+    <App entity={{}} isEdit={false}/>
   </React.StrictMode>
 );

@@ -34,6 +34,7 @@ const ViewManager = ({entity, isEdit}) => {
         case 'new':
             return(
                 <NewView
+                    changeMode={updateMode}
                     sender={requestManager.sendRequest}/>
             )
         case 'review':
