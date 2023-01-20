@@ -5,6 +5,17 @@ import {setMaxDate, setMinDate} from "../../../../utils/settingExpirationDate";
 
 const EditView = (props) => {
     const [fields,setFields] = useState(props.entity);
+    const [errors,setErrors] = useState([]);
+
+    const getMessageError=(fieldName)=> {
+        const error = errors.find((item)=> fieldName === item.field);
+
+        if(error === undefined) {
+            return null;
+        } else {
+            return error.message;
+        }
+    }
 
     /* HANDLERS */
     const changeHandler = (event) => {
@@ -20,13 +31,26 @@ const EditView = (props) => {
         setFields(changeState());
     }
 
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const validationResult = props.sender(fields,props.changeMode);
+
+        if(validationResult.length !== 0) {
+            setErrors(validationResult);
+        } else {
+            setErrors([]);
+        }
+    }
 
     return (
-        <form className={styles.formEditView} noValidate={true}>
+        <form
+            onSubmit={(event)=>submitHandler(event)}
+            className={styles.formEditView}
+            noValidate={true}>
             <h1>Client form</h1>
             <fieldset className={styles.fieldset}>
                 <h2>Contact information</h2>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('name')}>
                     <label className={styles.label}>
                         Name:
                         <input type="text"
@@ -38,7 +62,7 @@ const EditView = (props) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('surname')}>
                     <label className={styles.label}>
                         Surname:
                         <input type="text" maxLength="1000"
@@ -49,7 +73,7 @@ const EditView = (props) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('email')}>
                     <label className={styles.label}>
                         Email:
                         <input type="email"
@@ -61,7 +85,7 @@ const EditView = (props) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('dateOfBirth')}>
                     <label className={styles.label}>
                         Birthday:
                         <input type="date"
@@ -76,7 +100,7 @@ const EditView = (props) => {
             </fieldset>
             <fieldset className={styles.fieldset}>
                 <h2>Payment information</h2>
-                <ErrorWrapper>
+                <ErrorWrapper  message={getMessageError('cardNumber')}>
                     <label className={styles.label}>
                         Card:
                         <input type="text"
@@ -88,7 +112,7 @@ const EditView = (props) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper  message={getMessageError('cardExpiration')}>
                     <label className={styles.label}>
                         Expiration:
                         <input type="month"
@@ -101,7 +125,7 @@ const EditView = (props) => {
                         />
                     </label>
                 </ErrorWrapper>
-                <ErrorWrapper>
+                <ErrorWrapper message={getMessageError('cardCvc')}>
                     <label className={styles.label}>
                         CVC:
                         <input type="password"
@@ -115,7 +139,9 @@ const EditView = (props) => {
                     </label>
                 </ErrorWrapper>
             </fieldset>
-            <button type="submit" className={styles.submitButton}>Submit</button>
+            <button type="submit"
+                    className={styles.submitButton}
+            >Submit</button>
         </form>
     )
 }

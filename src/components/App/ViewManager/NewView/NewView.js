@@ -3,7 +3,7 @@ import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
 import {useState} from "react";
 import {setMinDate,setMaxDate} from "../../../../utils/settingExpirationDate";
 
-const NewView = () => {
+const NewView = ({sender}) => {
     const [fields,setFields] = useState({
         name: '',
         surname: '',
@@ -30,7 +30,11 @@ const NewView = () => {
 
 
     return (
-        <form className={styles.formNewView} noValidate={true}>
+        <form
+            className={styles.formNewView}
+            noValidate={true}
+            onSubmit={()=>sender.sendRequest(fields)}
+        >
             <h1>Client form</h1>
             <fieldset className={styles.fieldset}>
                 <h2>Contact information</h2>

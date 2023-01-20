@@ -1,3 +1,4 @@
+import RequestManager from "../../../utils/RequestManager/RequestManager";
 import ReviewView from "./ReviewView/ReviewView";
 import NewView from "./NewView/NewView";
 import EditView from "./EditView/EditView";
@@ -5,6 +6,8 @@ import {useState} from "react";
 
 const ViewManager = ({entity, isEdit}) => {
     const [mode,setMode] = useState(calcMode());
+    const [userData,setUserData] = useState(entity);
+    const requestManager = new RequestManager();
 
     function calcMode() {
         if (Object.keys(entity).length === 0) {
@@ -17,18 +20,36 @@ const ViewManager = ({entity, isEdit}) => {
         }
     }
 
+    function updateMode (newMode,data = userData)  {
+        if(['new','edit','review'].includes(newMode)) {
+            setMode(newMode);
+            setUserData(data);
+        } else {
+            throw new Error('Mode is not found');
+        }
+    }
+
+
     switch (mode) {
         case 'new':
             return(
-                <NewView/>
+                <NewView
+                    sender={requestManager.sendRequest}/>
             )
         case 'review':
             return (
-                <ReviewView entity={entity}/>
+                <ReviewView
+                    entity={userData}
+                    changeMode={updateMode}
+                />
             )
         case 'edit':
             return (
-                <EditView entity={entity}/>
+                <EditView
+                    entity={userData}
+                    changeMode={updateMode}
+                    sender={requestManager.sendRequest}
+                />
             )
         default:
             return(

@@ -81,7 +81,10 @@ const ReviewView = (props) => {
                     </label>
                 </ErrorWrapper>
             </fieldset>
-            <button type="button" className={styles.editButton}>Edit</button>
+            <button type="button"
+                    className={styles.editButton}
+                    onClick={()=>props.changeMode('edit')}
+            >Edit</button>
         </form>
     )
 }
