@@ -1,7 +1,7 @@
 import styles from "./NewView.module.css";
 import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
 import {useState} from "react";
-import {setMinDate,setMaxDate} from "../../../../utils/settingExpirationDate";
+import {setMinDate,setMaxDate} from "../../../../utils/common/settingExpirationDate";
 
 const NewView = (props) => {
     const [errors,setErrors] = useState([]);

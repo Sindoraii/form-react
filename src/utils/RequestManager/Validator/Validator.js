@@ -1,13 +1,11 @@
 import {
-    checkEmail, checkMaxInputDate, checkMinInputDate, checkMinYear,
+    checkEmail, checkValueMonthInput, checkMinYear,
     checkRequiredString,
     checkStringMinLength,
     checkStringWithoutNumbers
 } from "./rules/stringRules/stringRules";
 import {
     checkMinLength,
-    checkMinLengthOfCardNumber,
-    checkMinMaxLength,
     checkNumbers,
     checkNumberWithWhiteSpace
 } from "./rules/numberRules/numberRules";
@@ -48,8 +46,7 @@ class Validator {
                 return cardNumberErrors;
             case 'cardExpiration':
                 const cardExpirationErrors = [];
-                addError(checkMinInputDate(fieldName,fieldValue),cardExpirationErrors);
-                addError(checkMaxInputDate(fieldName,fieldValue),cardExpirationErrors);
+                addError(checkValueMonthInput(fieldName,fieldValue),cardExpirationErrors);
                 return cardExpirationErrors;
             case 'cardCvc':
                 const cvcErrors = [];

@@ -1,7 +1,7 @@
 import {useState} from "react";
 import styles from "./EditView.module.css";
 import ErrorWrapper from "../../../common/ErrorWrapper/ErrorWrapper";
-import {setMaxDate, setMinDate} from "../../../../utils/settingExpirationDate";
+import {setMaxDate, setMinDate} from "../../../../utils/common/settingExpirationDate";
 
 const EditView = (props) => {
     const [fields,setFields] = useState(props.entity);

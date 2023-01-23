@@ -1,3 +1,6 @@
+import {setMaxDate, setMinDate} from "../../../../common/settingExpirationDate";
+import {prepareMonth} from "../../../../common/setMonth";
+
 export function checkStringWithoutNumbers (fieldName,value) {
     const chars = value.split("");
 
@@ -62,36 +65,36 @@ export function checkMinYear(fieldName, value) {
     }
 }
 
-export function checkMinInputDate(fieldName, value) {
-    const yearOfUser = Number(value.slice(0, 4));
-    const inputMinYear = new Date().getFullYear();
-    const monthOfUserStr = value.slice(5);
-    let monthOfUserNumber = 0;
-    const inputMinMonth = new Date().getMonth() + 1;
-
-    if(monthOfUserStr[0] === '0') {
-        monthOfUserNumber = Number(monthOfUserStr[1]);
-    } else {
-        monthOfUserNumber = Number(monthOfUserStr);
-    }
-
-    /* comparison of dates  */
-    if(yearOfUser < inputMinYear) {
+export function checkValueMonthInput(fieldName, value) {
+    if(value === "") {
         return {
             field: fieldName,
-            message: `Value of year is incorrect`
-        }
-    } else if(yearOfUser === inputMinYear) {
-
-        if(monthOfUserNumber < inputMinMonth) {
-            return {
-                field: fieldName,
-                message: `Value of month is incorrect`
-            }
-        } else {
-            return {};
+            message: `Date is incorrect`
         }
     } else {
+        const userYear = Number(value.slice(0,4));
+        const userMonth = value.slice(5);
+        const minDate = setMinDate();
+        const maxDate = setMaxDate();
+        const minYear = Number(minDate.slice(0,4));
+        const maxYear = Number(maxDate.slice(0,4));
+        const month = Number(minDate.slice(6));
+
+        if(userYear > maxYear || userYear < minYear) {
+            return {
+                field: fieldName,
+                message: "Value of year is incorrect"
+            }
+        }
+
+        if(userYear === minYear || userYear === maxYear) {
+            if(prepareMonth(userMonth) < prepareMonth(month)) {
+                return {
+                    field: fieldName,
+                    message: "Value of month is incorrect"
+                }
+            }
+        }
         return {};
     }
 }
