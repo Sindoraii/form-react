@@ -42,7 +42,7 @@ class Validator {
             case 'cardNumber':
                 const cardNumberErrors = [];
                 addError(checkNumberWithWhiteSpace(fieldName,fieldValue),cardNumberErrors);
-                addError(checkMinLength(fieldName,fieldValue,19),cardNumberErrors);
+                addError(checkMinLength(fieldName,fieldValue,16),cardNumberErrors);
                 return cardNumberErrors;
             case 'cardExpiration':
                 const cardExpirationErrors = [];

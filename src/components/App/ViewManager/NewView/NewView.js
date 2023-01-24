@@ -17,7 +17,6 @@ const NewView = (props) => {
 
     const getMessageError = (fieldName) => {
         const error = errors.find((item)=> fieldName === item.field);
-
         if(error === undefined) {
             return null;
         } else {
@@ -112,7 +111,7 @@ const NewView = (props) => {
                     <label className={styles.label}>
                         Card:
                         <input type="text"
-                               maxLength="23"
+                               maxLength="19"
                                className={styles.input}
                                name="cardNumber"
                                value={fields.cardNumber}

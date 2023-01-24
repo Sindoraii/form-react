@@ -7,8 +7,8 @@ const user = {
     name: 'Name',
     surname: 'Surname',
     email: 'emailsdsk@gmail.com',
-    dateOfBirth: '1994-02-13',
-    cardNumber: '7777 7777 7777 7777',
+    dateOfBirth: '1990-02-13',
+    cardNumber: '1111111111111111',
     cardExpiration: '2023-02',
     cardCvc: '123',
 }
